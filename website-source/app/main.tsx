@@ -5,6 +5,11 @@ import {Dialog,DialogContent,DialogTitle,DialogDescription,DialogClose} from '@/
 import './globals.css';
 const pages=[['00page.png','추억의 표지','표지'],['0page.png','제26회 졸업기념','속표지'],['1page.png','그리운 우리 학교','학교'],['2page.png','고마운 선생님들','선생님'],['3page.png','우리 반의 얼굴들 · 하나','졸업생'],['4page.png','우리 반의 얼굴들 · 둘','졸업생'],['5page.png','우리 반의 얼굴들 · 셋','졸업생'],['6page.png','우리 반의 얼굴들 · 넷','졸업생'],['7page.png','함께 웃던 날들','학교생활']];
 const photo=(file:string)=>`${import.meta.env.BASE_URL}album/${file}`;
+function VisitorCounter(){
+ const[failed,setFailed]=useState(false);
+ const live=window.location.hostname==='kibin68.github.io';
+ return <div className="visitor-counter" aria-label="누적 방문 횟수"><div className="visitor-count-line">{!live?<span>방문 횟수는 공개 사이트에서 집계됩니다.</span>:failed?<span role="status">방문 횟수를 불러오지 못했습니다.</span>:<img src="https://hits.sh/kibin68.github.io/wolhak.svg?label=%EB%88%84%EC%A0%81%20%EB%B0%A9%EB%AC%B8&color=284c42&labelColor=526653&style=flat-square" alt="누적 방문 횟수" height="26" referrerPolicy="no-referrer" onError={()=>setFailed(true)}/>}</div><small>2026.09.08부터 · 재방문·새로고침 포함 · Hits 집계</small></div>
+}
 function App(){const[current,setCurrent]=useState(0);const[open,setOpen]=useState(false);const[zoom,setZoom]=useState(false);const[heroView,setHeroView]=useState(false);const viewed=heroView?['화질복원.png','우리 반 단체사진']:pages[current];
 const move=(delta:number)=>{setCurrent(i=>Math.max(0,Math.min(pages.length-1,i+delta)));setZoom(false)};
 useEffect(()=>{if(!open||heroView)return;const key=(e:KeyboardEvent)=>{if(e.key==='ArrowRight'){e.preventDefault();move(1)}if(e.key==='ArrowLeft'){e.preventDefault();move(-1)}};window.addEventListener('keydown',key);return()=>window.removeEventListener('keydown',key)},[open,heroView]);
@@ -16,18 +21,8 @@ return <><a className="skip" href="#album">앨범으로 바로 가기</a><div cl
 <section className="album-section" id="album"><div className="section-heading"><div><p className="eyebrow">한 장 한 장, 다시 만나는 시간</p><h2>우리들의 졸업앨범</h2></div><p>빛바랜 종이 위에 남은<br/>그날의 모습 그대로.</p></div><div className="album-layout"><div className="album-index"><div className="index-heading">차 례 <span>{pages.length}장의 기억</span></div>{pages.map((p,i)=><button key={p[0]} onClick={()=>{setCurrent(i);setZoom(false)}} className={current===i?'selected':''} aria-current={current===i?'page':undefined}><span className="index-number">{String(i+1).padStart(2,'0')}</span><span>{p[1]}</span><ArrowUpRight size={16}/></button>)}</div><div className="album-sheet"><div className="sheet-top"><span>{pages[current][2]}</span><button onClick={()=>show(current)}><Maximize2 size={16}/> 크게 보기</button></div><button className="page-image" onClick={()=>show(current)} aria-label={`${pages[current][1]} 크게 보기`}><img src={photo(pages[current][0])} alt={pages[current][1]} loading="lazy"/></button><div className="page-controls"><button onClick={()=>move(-1)} disabled={current===0} aria-label="이전 앨범 페이지"><ArrowLeft size={20}/><span>이전 장</span></button><span aria-live="polite">{String(current+1).padStart(2,'0')} <i>/ {pages.length}</i></span><button onClick={()=>move(1)} disabled={current===pages.length-1} aria-label="다음 앨범 페이지"><span>다음 장</span><ArrowRight size={20}/></button></div></div></div></section>
 <section className="moments" id="moments"><div className="section-heading"><div><p className="eyebrow">사진 속에 머문 날들</p><h2>그때 그 시절</h2></div><span className="handwritten">이 얼굴들, 기억나나요?</span></div><div className="memory-grid">{[[2,'학교, 그 이름만으로','늘 마음 한편에 남아 있는 곳.'],[8,'함께라서 즐거웠던 날','운동장에서도, 교실에서도.'],[4,'같은 교실, 같은 추억','선생님과 친구들이 함께한 시간.']].map(([idx,title,desc])=><button className="memory-card" key={String(idx)} onClick={()=>show(Number(idx))}><div className="memory-picture"><img src={photo(pages[Number(idx)][0])} alt={pages[Number(idx)][1]} loading="lazy"/></div><div className="memory-text"><span>기억 {String(Number(idx)+1).padStart(2,'0')}</span><h3>{title}</h3><p>{desc}</p><ArrowUpRight size={23}/></div></button>)}</div></section>
 <section className="closing"><p>오랜 시간이 흘러도</p><h2>우리는, 월학의 친구들.</h2><span>1980학년도 · 월학국민학교 제26회 졸업기념</span></section></main>
-<footer>
-<a className="brand" href="#">
-<span className 월학국민학교
-<small>제26회 졸업생 추억 보관소</small>
-</span>
-</a>
-<p>우리의 어린 날을 오래오래 간직합니다.</p>
-<div style={{ margin: '12px 0' }}>
-<img
-src="https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fkibin68.github.io%2Fwolhak%2F"
-ef="#">맨 위로 ↑</a>
-</footer>
+<footer><a className="brand" href="#"><span className="seal">월학</span><span>월학국민학교<small>제26회 졸업생 추억 보관소</small></span></a><div className="footer-memory"><p>우리의 어린 날을 오래오래 간직합니다.</p><VisitorCounter/></div><a href="#">맨 위로 ↑</a></footer>
 <Dialog open={open} onOpenChange={v=>{setOpen(v);if(!v)setZoom(false)}}><DialogContent className="album-dialog" showCloseButton={false}><div className="viewer-top"><div><DialogTitle>{viewed[1]}</DialogTitle><DialogDescription>사진을 눌러 확대하거나 원래 크기로 돌아갈 수 있습니다.</DialogDescription></div><DialogClose className="close-viewer" aria-label="사진 닫기"><X size={24}/></DialogClose></div><div className={'viewer-image '+(zoom?'zoomed':'')}><button onClick={()=>setZoom(!zoom)} aria-label={zoom?'사진 축소':'사진 확대'}><img src={photo(viewed[0])} alt={viewed[1]}/></button></div>{!heroView&&<div className="page-controls"><button disabled={current===0} onClick={()=>move(-1)}><ArrowLeft size={20}/> 이전 장</button><span aria-live="polite">{current+1} / {pages.length}</span><button disabled={current===pages.length-1} onClick={()=>move(1)}>다음 장 <ArrowRight size={20}/></button></div>}</DialogContent></Dialog></>}
 createRoot(document.getElementById('root')!).render(<App/>);
+
 
