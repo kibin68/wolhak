@@ -17,24 +17,16 @@ return <><a className="skip" href="#album">앨범으로 바로 가기</a><div cl
 <section className="moments" id="moments"><div className="section-heading"><div><p className="eyebrow">사진 속에 머문 날들</p><h2>그때 그 시절</h2></div><span className="handwritten">이 얼굴들, 기억나나요?</span></div><div className="memory-grid">{[[2,'학교, 그 이름만으로','늘 마음 한편에 남아 있는 곳.'],[8,'함께라서 즐거웠던 날','운동장에서도, 교실에서도.'],[4,'같은 교실, 같은 추억','선생님과 친구들이 함께한 시간.']].map(([idx,title,desc])=><button className="memory-card" key={String(idx)} onClick={()=>show(Number(idx))}><div className="memory-picture"><img src={photo(pages[Number(idx)][0])} alt={pages[Number(idx)][1]} loading="lazy"/></div><div className="memory-text"><span>기억 {String(Number(idx)+1).padStart(2,'0')}</span><h3>{title}</h3><p>{desc}</p><ArrowUpRight size={23}/></div></button>)}</div></section>
 <section className="closing"><p>오랜 시간이 흘러도</p><h2>우리는, 월학의 친구들.</h2><span>1980학년도 · 월학국민학교 제26회 졸업기념</span></section></main>
 <footer>
-#
-  <span className="seal">월학</span>
-<span>
-  월학국민학교
-  <small>제26회 졸업생 추억 보관소</small>
+<a className="brand" href="#">
+<span className 월학국민학교
+<small>제26회 졸업생 추억 보관소</small>
 </span>
 </a>
-
 <p>우리의 어린 날을 오래오래 간직합니다.</p>
-
 <div style={{ margin: '12px 0' }}>
-  <img
-    src="https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fkibin68.github.io%2Fwolhak%2F&count_bg=%233D6CC8&title_bg=%233D6CC8&icon=&title=&edge_flat=true"
-    alt="방문자수"
-  />
-</div>
-
-#맨 위로 ↑</a>
+<img
+src="https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fkibin68.github.io%2Fwolhak%2F"
+ef="#">맨 위로 ↑</a>
 </footer>
 <Dialog open={open} onOpenChange={v=>{setOpen(v);if(!v)setZoom(false)}}><DialogContent className="album-dialog" showCloseButton={false}><div className="viewer-top"><div><DialogTitle>{viewed[1]}</DialogTitle><DialogDescription>사진을 눌러 확대하거나 원래 크기로 돌아갈 수 있습니다.</DialogDescription></div><DialogClose className="close-viewer" aria-label="사진 닫기"><X size={24}/></DialogClose></div><div className={'viewer-image '+(zoom?'zoomed':'')}><button onClick={()=>setZoom(!zoom)} aria-label={zoom?'사진 축소':'사진 확대'}><img src={photo(viewed[0])} alt={viewed[1]}/></button></div>{!heroView&&<div className="page-controls"><button disabled={current===0} onClick={()=>move(-1)}><ArrowLeft size={20}/> 이전 장</button><span aria-live="polite">{current+1} / {pages.length}</span><button disabled={current===pages.length-1} onClick={()=>move(1)}>다음 장 <ArrowRight size={20}/></button></div>}</DialogContent></Dialog></>}
 createRoot(document.getElementById('root')!).render(<App/>);
