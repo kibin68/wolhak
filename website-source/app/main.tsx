@@ -19,7 +19,10 @@ return <><a className="skip" href="#album">앨범으로 바로 가기</a><div cl
 <footer><a className="brand" href="#"><span className="seal">월학</span><span>월학국민학교<small>제26회 졸업생 추억 보관소</small></span></a><p>우리의 어린 날을 오래오래 간직합니다.</p><div style={{margin:'12px 0'}}>
 <img
 src="https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fkibin68.github.io%2Fwolhak%2F&count_bg=%233D6CC8&title_bg=%233D6CC8&icon=&title=&edge_flat=true"
-alt="방문자수"<a href="#">맨 위로 ↑</a></footer>
+alt="방문자수"
+    />
+</div>div>
+    <a href="#">맨 위로 ↑</a></footer>
 <Dialog open={open} onOpenChange={v=>{setOpen(v);if(!v)setZoom(false)}}><DialogContent className="album-dialog" showCloseButton={false}><div className="viewer-top"><div><DialogTitle>{viewed[1]}</DialogTitle><DialogDescription>사진을 눌러 확대하거나 원래 크기로 돌아갈 수 있습니다.</DialogDescription></div><DialogClose className="close-viewer" aria-label="사진 닫기"><X size={24}/></DialogClose></div><div className={'viewer-image '+(zoom?'zoomed':'')}><button onClick={()=>setZoom(!zoom)} aria-label={zoom?'사진 축소':'사진 확대'}><img src={photo(viewed[0])} alt={viewed[1]}/></button></div>{!heroView&&<div className="page-controls"><button disabled={current===0} onClick={()=>move(-1)}><ArrowLeft size={20}/> 이전 장</button><span aria-live="polite">{current+1} / {pages.length}</span><button disabled={current===pages.length-1} onClick={()=>move(1)}>다음 장 <ArrowRight size={20}/></button></div>}</DialogContent></Dialog></>}
 createRoot(document.getElementById('root')!).render(<App/>);
 
